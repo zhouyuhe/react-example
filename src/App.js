@@ -1,16 +1,15 @@
 import React,{useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { Switch } from './Switch';
 
-
-
-function App() {
+const App = () => {
+  const [value, setValue] = useState(false)
   const [Time, setTime]= useState(0)
   const [isRunning, setIsRunning]=useState(false)
-  const toggleButton = ()=>{
-    //onClick and change the state dynamically, change it to the opposite way
-    setIsRunning(!isRunning)
-  }
+  // const toggleButton = ()=>{
+  //   //onClick and change the state dynamically, change it to the opposite way
+  //   setIsRunning(!isRunning)
+  // }
   const reset=()=>{
     //reset the current state, not the initial one
     setTime(0)
@@ -28,18 +27,16 @@ function App() {
   }, [isRunning]);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-         Timer
-        </p>
+    <>
+        <header>The Timer {Time}</header>
         <div>{Time}ms</div>
         <div><button onClick={reset}>Reset</button></div>
         {/* isRunning condition to change it automatically */}
-        <button onClick={toggleButton}>{isRunning ? 'Pause':'Start'}</button>
-      </header>
-    </div>
+        <button onClick={() =>setIsRunning(!isRunning)}>{isRunning ? 'Pause':'Start'}</button>
+        {/* <button onClick={toggleButton}>{isRunning ? 'Pause':'Start'}</button>  different ways of writing it*/  }
+    <Switch
+      isOn={value} handleToggle={() => setValue (!value)} onColor= '#06D6A0'/>
+    </>
   );
 }
 
