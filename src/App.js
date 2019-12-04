@@ -5,31 +5,27 @@ import './App.css';
 
 
 function App() {
-  const [second, setSecond]= useState(0)
+  const [Time, setTime]= useState(0)
   const [isRunning, setIsRunning]=useState(false)
   const toggleButton = ()=>{
-    //onClick and change the state dynamically
+    //onClick and change the state dynamically, change it to the opposite way
     setIsRunning(!isRunning)
   }
   const reset=()=>{
     //reset the current state, not the initial one
-    setSecond(0)
+    setTime(0)
     setIsRunning(false)
   }
   
   useEffect(()=>{
-    //render only interval and second changes
-    let interval
+    //render only isRunning change
     if (isRunning){
-      interval=setInterval(() => {
-        setSecond(second+1)
-      }, 10);
-    }else if (!isRunning && second !==0){
-      clearInterval(interval)
+      const interval = setInterval(() => {
+        setTime(s => s + 1)
+      }, 1);
+      return  () => clearInterval(interval)
     }
-    return  () => clearInterval(interval)
-
-  }, [isRunning, second])
+  }, [isRunning]);
 
   return (
     <div className="App">
@@ -38,8 +34,8 @@ function App() {
         <p>
          Timer
         </p>
-        <div>{second}</div>
-        <button onClick={reset}>Reset</button>
+        <div>{Time}ms</div>
+        <div><button onClick={reset}>Reset</button></div>
         {/* isRunning condition to change it automatically */}
         <button onClick={toggleButton}>{isRunning ? 'Pause':'Start'}</button>
       </header>
