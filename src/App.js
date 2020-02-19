@@ -17,18 +17,19 @@ const App = () => {
   }
   
   useEffect(()=>{
-    //render only isRunning change
+    //do the side effect if only isRunning change
     if (isRunning){
       const interval = setInterval(() => {
         setTime(s => s + 1)
       }, 1);
+      // return clear interval in each render
       return  () => clearInterval(interval)
     }
   }, [isRunning]);
 
   return (
     <>
-        <header>The Timer {Time}</header>
+        <header>The Timer</header>
         <div>{Time}ms</div>
         <div><button onClick={reset}>Reset</button></div>
         {/* isRunning condition to change it automatically */}
@@ -38,6 +39,7 @@ const App = () => {
       isOn={value} handleToggle={() => setValue (!value)} onColor= '#06D6A0'/>
     </>
   );
+  
 }
 
 export default App;
